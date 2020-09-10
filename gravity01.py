@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-"""Proof of concept gfxdraw example"""
-
 import numpy as np
 import random
 import math
@@ -10,7 +8,7 @@ import pygame as pg
 # constants
 WINSIZE = [640, 480]
 WINCENTER = [320, 240]
-NUMSTARS = 150
+NUMSTARS = 1000
 
 grav_const = 6.67430e-11 # m^3 kg^-1 s^-2
 
@@ -23,10 +21,10 @@ class SpaceObject:
 
 def distance(so1, so2):
     d = so1.position - so2.position
-    print(d*d)
+    return (np.inner(d, d))
 
-def grav_force(so1, so2, r):
-    fg = grav_const * so1.mass * so2.mass / (r*r) # N
+def grav_force(so1, so2):
+    fg = grav_const * so1.mass * so2.mass / distance(so1, so2) # N
     return fg
 
 """ pg.examples.stars
@@ -95,13 +93,10 @@ def main():
     print(spaceship.name)
     sun = SpaceObject('Sun', 1.9884e30, 0, 0, 0, 10)
 
-    #print(grav_force(spaceship, sun))
     distance(spaceship, sun)
+    print(grav_force(spaceship, sun))
           
-    pygame.init()
-    screen = pygame.display.set_mode((500, 500))
-    screen.fill((255, 0, 0))
-    
+   
     "This is the starfield code"
     # create our starfield
     random.seed()
