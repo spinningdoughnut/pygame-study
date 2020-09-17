@@ -8,7 +8,7 @@ import pygame as pg
 # constants
 WINSIZE = [640, 480]
 WINCENTER = [320, 240]
-NUMSTARS = 1000
+NUMSTARS = 100
 
 grav_const = 6.67430e-11 # m^3 kg^-1 s^-2
 
