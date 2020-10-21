@@ -1,29 +1,5 @@
 #!/usr/bin/env python
-""" pygame.examples.aliens
 
-Shows a mini game where you have to defend against aliens.
-
-What does it show you about pygame?
-
-* pg.sprite, the difference between Sprite and Group.
-* dirty rectangle optimization for processing for speed.
-* music with pg.mixer.music, including fadeout
-* sound effects with pg.Sound
-* event processing, keyboard handling, QUIT handling.
-* a main loop frame limited with a game clock from pg.time.Clock
-* fullscreen switching.
-
-
-Controls
---------
-
-* Left and right arrows to move.
-* Space bar to shoot
-* f key to toggle between fullscreen.
-
-"""
-
-import random
 import os
 import numpy as np
 
@@ -49,9 +25,6 @@ main_dir = os.path.split(os.path.abspath(__file__))[0]
 # Each type of game object gets an init and an update function.
 # The update function is called once per frame, and it is when each object should
 # change it's current position and state.
-#
-# The Player object actually gets a "move" function instead of update,
-# since it is passed extra information about the keyboard.
 
 
 class SpaceObject:
@@ -93,7 +66,7 @@ class GravitationalField:
     def grav_force(self, a: SpaceObject, b: SpaceObject):
         d = np.subtract(b.position, a.position)
         d = np.inner(d, d)
-        return GRAV_CONST * a.mass * b.mass / d # in N, or kg m / s^2
+        return GRAV_CONST * a.mass * b.mass / d  # in N, or kg m / s^2
 
     def add(self, new_object: SpaceObject):
         self.space_objects.append(new_object)
@@ -168,6 +141,7 @@ class SpaceObjectRenderer:
             so.position = np.add(so.position, np.multiply(so.velocity, self.grav_field.delta_t))
         pass
 
+
 def main(winstyle=0):
     # Initialize pygame
     # if pg.get_sdl_version()[0] == 2:
@@ -208,14 +182,14 @@ def main(winstyle=0):
     earth.position = np.array([0.0, 110.0, 0.0])
     earth.velocity = np.array([1.5, 0.0, 0.0])
     earth.color = pg.Color(100, 100, 255)
-    earth.mass = MASS_EARTH                   #kg
+    earth.mass = MASS_EARTH                   # kg
 
     moon = SpaceObject('Moon', 5.20e8)
     moon.radius = 5
     moon.position = np.array([0.0, 135.0, 0.0])
     moon.velocity = np.array([3.0, 0.0, 0.0])
     moon.color = pg.Color(100, 100, 100)
-    moon.mass = 1e5                   #kg
+    moon.mass = 1e5                   # kg
 
     renderer = SpaceObjectRenderer()
     renderer.add(sun)
